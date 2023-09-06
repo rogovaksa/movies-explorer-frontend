@@ -1,0 +1,148 @@
+.about-project {
+  margin: 0 auto;
+  padding: 110px 70px;
+  max-width: 100%;
+  background: #FFFFFF;
+  color:#000000;
+}
+
+.about-project__title {
+  font-weight: 400;
+  font-size: 22px;
+  line-height: 27px;
+  margin: 0;
+}
+
+.about-project__title::after {
+  content: '';
+  display: block;
+  box-sizing: border-box;
+  border-bottom: 1px solid #DADADA;
+  padding-top: 23px;
+  margin-bottom: 70px;
+}
+
+.about-project__text {
+  padding: 0;
+  list-style-type: none;
+  display: flex;
+  margin: 0 auto 110px;
+  column-gap: 50px;
+}
+
+.about-project__text-title {
+  font-weight: 400;
+  font-size: 20px;
+  line-height: 24px;
+  margin-bottom: 26px;
+  margin: 0;
+}
+
+.about-project__text-content {
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 20px;
+  padding: 0;
+  margin: 25px 0 0 ;
+}
+
+.about-project__time {
+  width: 100%;
+  display: grid;
+  grid-template-columns: 20% 80%;
+  list-style-type: none;
+  align-items: baseline;
+  padding: 0;
+  margin: 0;
+}
+
+.about-project__time-title {
+  font-weight: 400;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: #F2F2F2;
+  font-size: 14px;
+  line-height: 16px;
+  min-height: 36px;
+  margin: 0;
+}
+
+.about-project__time-title_backend {
+  background: #2BE080;
+}
+
+.about-project__time-subtitle {
+  font-weight: 400;
+  text-align: center;
+  font-size: 14px;
+  line-height: 17px;
+  margin: 14px 0 0 0;
+  color: #A0A0A0;
+}
+
+@media screen and (max-width: 820px) {
+  .about-project {
+    padding: 90px 50px;
+  }
+
+  .about-project__text-content {
+    font-size: 12px;
+    line-height: 18px;
+    margin-top: 20px;
+  }
+
+  .about-project__text {
+    column-gap: 35px;
+    margin-bottom: 93px;
+  }
+}
+
+@media screen and (max-width: 420px) {
+  .about-project {
+    padding: 70px 18px;
+  }
+
+  .about-project__title {
+    font-size: 18px;
+    line-height: 22px;
+  }
+
+  .about-project__text {
+    margin: 0 auto 55px;
+    display: inline-block;
+  }
+
+  .about-project__title::after {
+    margin-bottom: 60px;
+  }
+
+  .about-project__text-title {
+    font-size: 18px;
+    margin: 0 0 16px 0;
+  }
+
+  .about-project__text-content {
+    font-size: 11px;
+    line-height: 16px;
+    margin: 0 auto 56px;
+  }
+
+  .about-project__text-content_last {
+    margin-bottom: 0;
+  }
+
+  .about-project__time {
+    grid-template-columns: 35% 65%;
+  }
+
+  .about-project__time-title {
+    font-size: 11px;
+    line-height: 13px;
+  }
+
+  .about-project__time-subtitle {
+    font-size: 11px;
+    line-height: 13px;
+  }
+}

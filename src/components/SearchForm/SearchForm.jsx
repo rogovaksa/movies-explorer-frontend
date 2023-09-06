@@ -1,0 +1,40 @@
+import React from 'react';
+import './SearchForm.css';
+import FilterCheckbox from '../FilterCheckbox/FilterCheckbox';
+
+function SearchForm({
+  onSubmit,
+  searchValue,
+  isShortFilms,
+  setIsShortFilms,
+}) {
+  return (
+    <section className='search'>
+      <form
+        className='search__form'
+        noValidate
+        autoComplete='off'
+        onSubmit={onSubmit}
+      >
+        <fieldset className='search__field'>
+          <input
+            className='search__input'
+            type='text'
+            placeholder='Фильм'
+            required
+            value={searchValue}
+          />
+          <button className='search__submit' type='submit'></button>
+        </fieldset>
+      </form>
+      <div>
+        <FilterCheckbox
+          isShortFilms={isShortFilms}
+          setIsShortFilms={setIsShortFilms}
+        />
+      </div>
+    </section>
+  );
+}
+
+export default SearchForm;
