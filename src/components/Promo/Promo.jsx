@@ -9,7 +9,7 @@ function Promo() {
   };
 
   return (
-    <div className='promo'>
+    <section className='promo'>
       <div className='promo__container'>
         <div className='promo__text-content'>
           <h1 className='promo__title'>
@@ -23,7 +23,7 @@ function Promo() {
         </div>
         <img src={landingLogo} alt='Фоновый рисунок' className='promo__image' />
       </div>
-    </div>
+    </section>
   );
 }
 

@@ -10,16 +10,18 @@ const Login = memo(({ textError, clearTextError }) => {
     }
   }
   return (
-    <section className='login__page'>
-      <Form
-        name='signin'
-        title='Рады видеть!'
-        btnName='Войти'
-        onSubmit={handleSubmit}
-        textError={textError}
-        clearTextError={clearTextError}
-      />
-    </section>
+    <main>
+      <section className='login'>
+        <Form
+          name='signin'
+          title='Рады видеть!'
+          btnName='Войти'
+          onSubmit={handleSubmit}
+          textError={textError}
+          clearTextError={clearTextError}
+        />
+      </section>
+    </main>
   );
 });
 

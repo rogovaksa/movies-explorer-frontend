@@ -10,7 +10,7 @@ function MoviesCard(props) {
     setIsSaved(!isSaved);
   }
   return (
-      <li className='movies__list-item'>
+      <li className='movies'>
         <div className='movies__list-description'>
           <div className='movies__list-name'>
             <p className='movies__list-title'>33 слова о дизайне</p>

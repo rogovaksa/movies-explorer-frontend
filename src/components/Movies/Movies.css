@@ -1,4 +1,4 @@
-.movies {
+.movies-section {
   margin: 0;
   padding: 0 70px;
   background-color: white;
@@ -6,7 +6,7 @@
   flex-grow: 1;
 }
 
-.movies__container {
+.movies-section__container {
   margin: 0;
   padding: 0;
   max-width: 100%;
@@ -14,13 +14,13 @@
 }
 
 @media screen and (max-width: 820px) {
-  .movies {
+  .movies-section {
     padding: 0 30px;
   }
 }
 
 @media screen and (max-width: 450px) {
-  .movies {
+  .movies-section {
     padding: 0 10px;
   }
 }

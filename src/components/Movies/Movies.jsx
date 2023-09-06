@@ -6,16 +6,18 @@ import MoviesCardList from '../MoviesCardList/MoviesCardList';
 
 function Movies() {
   return (
-    <div className='movies'>
-      <div className='movies__container'>
-        <SearchForm
-          page={'movies'}
-        />
-        <MoviesCardList
-          page={'movies'}
-        />
-      </div>
-    </div>
+    <main>
+      <section className='movies-section'>
+        <div className='movies-section__container'>
+          <SearchForm
+            page={'movies'}
+          />
+          <MoviesCardList
+            page={'movies'}
+          />
+        </div>
+      </section>
+    </main>
   );
 }
 

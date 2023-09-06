@@ -54,6 +54,11 @@
   cursor: pointer;
   margin: 146px auto 25px 0px;
   white-space: nowrap;
+  transition: linear 0.3s;
+}
+
+.promo__button:hover {
+  opacity: 0.8;
 }
 
 .promo__image {

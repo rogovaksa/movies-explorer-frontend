@@ -54,9 +54,13 @@
   text-decoration: none;
   text-align: right;
   color: black;
-  transition: ease-in-out .3s;
+  transition: linear .3s;
   margin: 0;
   padding: 0;
+}
+
+.footer__link:hover {
+  opacity: 0.7;
 }
 
 @media screen and (max-width: 820px) {

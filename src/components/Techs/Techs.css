@@ -132,5 +132,12 @@
 
   .techs__list {
     padding: 0 10px 0;
+    display: grid;
+    align-content: center;
+    justify-content: center;
+    grid-template-columns: repeat(2, auto);
+    grid-column-gap: 15px;
+    grid-row-gap: 10px;
+    max-width: 100%;
   }
 }

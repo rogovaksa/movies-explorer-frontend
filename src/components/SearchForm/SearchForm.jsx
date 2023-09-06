@@ -9,7 +9,7 @@ function SearchForm({
   setIsShortFilms,
 }) {
   return (
-    <div className='search'>
+    <section className='search'>
       <form
         className='search__form'
         noValidate
@@ -33,7 +33,7 @@ function SearchForm({
           setIsShortFilms={setIsShortFilms}
         />
       </div>
-    </div>
+    </section>
   );
 }
 

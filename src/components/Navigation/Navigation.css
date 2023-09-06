@@ -19,10 +19,11 @@
   color: black;
   text-decoration: none;
   text-align: right;
+  transition: linear 0.3s;
 }
 
 .navigation__link:hover {
-  opacity: 0.6;
+  opacity: 0.7;
 }
 
 @media screen and (max-width: 804px) {

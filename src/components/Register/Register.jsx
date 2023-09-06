@@ -8,16 +8,18 @@ const Register = memo(({ textError, clearTextError }) => {
   }
 
   return (
-    <section className='register'>
-      <Form
-        name='sign-up'
-        title='Добро пожаловать!'
-        btnName='Зарегистрироваться'
-        onSubmit={handleSubmit}
-        textError={textError}
-        clearTextError={clearTextError}
-      />
-    </section>
+    <main>
+      <section className='register'>
+        <Form
+          name='sign-up'
+          title='Добро пожаловать!'
+          btnName='Зарегистрироваться'
+          onSubmit={handleSubmit}
+          textError={textError}
+          clearTextError={clearTextError}
+        />
+      </section>
+    </main>
   );
 });
 

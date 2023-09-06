@@ -18,9 +18,9 @@ function Profile({ signOut, isLoading }) {
     return <Preloader />
   } else {
     return (
-      <section className='profile'>
-        <div className='profile__container'>
-          <h1 className='profile__title'>{`Привет, ${currentUser.name}!`}</h1>
+      <main className='profile'>
+        <section className='profile__container'>
+          <h2 className='profile__title'>{`Привет, ${currentUser.name}!`}</h2>
           <form className='profile__form' onSubmit={handleSubmit}>
             <label className='profile__field'>
               <span className='profile__name'>Имя</span>
@@ -35,6 +35,9 @@ function Profile({ signOut, isLoading }) {
                 required
               />
             </label>
+            <span className="profile__error">{`${
+              form.errors.name ? form.errors.name : ''
+            }`}</span>
             <label className='profile__field'>
               <span className='profile__name'>E-mail</span>
               <input
@@ -48,6 +51,10 @@ function Profile({ signOut, isLoading }) {
                 required
               />
             </label>
+            <span className="profile__error">{`${
+              form.errors.email ? form.errors.email : ''
+            }`}</span>
+            {/* Изменение состояния кнопки "Редактировать" будет реализовано на следующем этапе при написании функционала приложения */}
             <button
               type='submit'
               className={`profile__button ${
@@ -61,8 +68,8 @@ function Profile({ signOut, isLoading }) {
           <button type='button' className='profile__signout' onClick={signOut}>
             Выйти из аккаунта
           </button>
-        </div>
-      </section>
+        </section>
+      </main>
     );
   }
 }
