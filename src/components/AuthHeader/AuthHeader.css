@@ -11,6 +11,10 @@
   background-color: #FFFFFF;
 }
 
+.auth-header_main {
+  background-color: #465DFF;
+}
+
 .auth-header__containers {
   display: flex;
   gap: 45px;

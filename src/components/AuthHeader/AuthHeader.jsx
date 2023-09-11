@@ -1,4 +1,5 @@
 import React from "react";
+import { useLocation } from "react-router-dom";
 import { Link } from 'react-router-dom';
 
 import './AuthHeader.css';
@@ -9,12 +10,14 @@ import Navigation from '../Navigation/Navigation';
 
 function AuthHeader() {
   const [activeBurger, setActiveBurger] = React.useState(false);
+  const { pathname } = useLocation();
 
   function handleActiveBurger() {
     setActiveBurger(!activeBurger);
   }
+
   return (
-    <header className="auth-header">
+    <header className={`auth-header ${pathname === "/" ? "auth-header_main" : ""}`}>
       <div className="auth-header__containers">
         <div className="auth-header__container">
           <Link className="auth-header__link" to="/">

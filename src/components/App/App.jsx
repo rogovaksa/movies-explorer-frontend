@@ -1,8 +1,9 @@
-import { useState } from 'react';
-import { Route, Routes, BrowserRouter as Router } from 'react-router-dom';
+import { useState, useMemo, useEffect } from 'react';
+import { Route, Routes, useNavigate, Navigate } from 'react-router-dom';
 import './App.css';
 
-import Preloader from '../Preloader/Preloader';
+import mainApi from "../../utils/MainApi";
+
 import Header from '../Header/Header';
 import Main from '../Main/Main';
 import Footer from '../Footer/Footer';
@@ -16,51 +17,225 @@ import SavedMovies from '../SavedMovies/SavedMovies';
 import Profile from '../Profile/Profile';
 
 import NotFoundPage from '../NotFoundPage/NotFoundPage';
+import ProtectedRoute from "../ProtectedRoute/ProtectedRoute";
+import InfoTooltip from "../InfoTooltip/InfoTooltip";
+import TooltipContext from "../../contexts/TooltipContext";
+
+import {
+  CONFLICT_ERROR_CODE,
+  UNAUTH_ERROR_CODE,
+} from "../../constants/constants";
 
 import { CurrentUserContext } from '../../contexts/CurrentUserContext';
 
 function App() {
-  const [currentUser] = useState({});
-  const [isLoading] = useState(false);
+  const navigate = useNavigate();
+  const [currentUser, setCurrentUser] = useState({});
+  const [isLogin, setIsLogin] = useState(false);
+  const [textError, setTextError] = useState("");
+  const [isEditError, setIsEditError] = useState(false);
+  const [isEditDone, setIsEditDone] = useState(false);
+  const [tooltipMessage, setTooltipMessage] = useState("");
+  const loggedIn = localStorage.getItem("jwt") || false;
 
-  if (isLoading) {
-    return <Preloader />;
+  const tooltipContext = useMemo(
+    () => ({ tooltipMessage, setTooltipMessage }),
+    [tooltipMessage]
+  );
+
+  //проверка токена и установка login true
+  useEffect(() => {
+    const jwt = localStorage.getItem("jwt");
+    if (jwt) {
+      mainApi
+        .getUserInfoFromServer(jwt)
+        .then((user) => {
+          if (user) {
+            setIsLogin(true);
+            localStorage.setItem("userId", user._id);
+            setCurrentUser(user);
+          }
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    } else {
+      setIsLogin(false);
+    }
+  }, []);
+
+  /*Обработчик регистрации*/
+  function handleAuthRegister(name, email, password) {
+    mainApi
+      .register(name, email, password)
+      .then((data) => {
+        if (data) {
+          handleAuthLogin(email, password);
+        }
+      })
+      .catch((err) => {
+        if (err.status === CONFLICT_ERROR_CODE) {
+          setTextError("This email already exists");
+        } else {
+          console.log(err);
+          setTextError("Server error");
+        }
+      })
+      .finally(() => {
+        setTextError("");
+      });
   }
+
+  /*Обработчик логина*/
+  function handleAuthLogin(email, password) {
+    mainApi
+      .authorize(email, password)
+      .then((jwt) => {
+        if (jwt.token) {
+          localStorage.setItem("jwt", jwt.token);
+          setIsLogin(true);
+          navigate("/movies");
+        }
+      })
+      .catch((err) => {
+        if (err.status === UNAUTH_ERROR_CODE) {
+          setTextError("Wrong email or password");
+        } else {
+          console.log(err);
+          setTextError("Server error");
+        }
+        console.log(err);
+      })
+      .finally(() => {
+        setTextError("");
+      });
+  }
+
+  // Обработчик кнопки Редактировать на странице профиля
+  function editProfile(name, email) {
+    mainApi
+      .saveUserInfoToServer(name, email)
+      .then((userData) => {
+        setCurrentUser(userData);
+        setIsEditDone(true);
+        setIsEditError(false);
+      })
+      .catch(() => {
+        setIsEditError(true);
+      })
+      .finally(() => {
+        setIsEditError(false);
+      });
+  }
+
+  //выход из учетной записи и удаление токена из локального хранилища
+  function handleLogout() {
+    setCurrentUser({});
+    localStorage.clear();
+    setIsLogin(false);
+    navigate("/");
+  }
+
+  //запрос инфо при успешном токене
+  useEffect(() => {
+    if (isLogin) {
+      mainApi
+        .getUserInfoFromServer()
+        .then((user) => {
+          setCurrentUser(user);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    }
+  }, [isLogin]);
+
   return (
     <CurrentUserContext.Provider value={currentUser}>
-      <Router>
+      <TooltipContext.Provider value={tooltipContext}>
+        <InfoTooltip message={tooltipMessage} />
         <div className='page'>
             <Routes>
               <Route
                 exact
                 path='/'
-                element={<><Header /><Main loggedIn={false} /><Footer /></>}
+                element={
+                  <>
+                    {isLogin ? <HeaderAuth /> : <Header />}
+                    <Main isLogin={isLogin} />
+                    <Footer />
+                  </>
+                }
               />
               <Route
                 exact
                 path='/signin'
-                element={<Login />}
+                element={
+                  loggedIn ? (
+                    <Navigate to="/" />
+                  ) : (
+                    <Login
+                      authLogin={handleAuthLogin}
+                      textError={textError}
+                      setTextError={setTextError}
+                    />
+                  )
+                }
               />
               <Route
                 exact
                 path='/signup'
-                element={<Register />}
+                element={
+                  loggedIn ? (
+                    <Navigate to="/" />
+                  ) : (
+                    <Register
+                      authRegister={handleAuthRegister}
+                      textError={textError}
+                      setTextError={setTextError}
+                    />
+                  )
+                }
               />
               <Route
               exact
               path='/movies'
-              element={<><HeaderAuth /> <Movies loggedIn={true} /> <Footer /></>}
+              element={
+                <ProtectedRoute allowed={loggedIn}>
+                  <HeaderAuth />
+                  <Movies isLogin={isLogin} />
+                  <Footer />
+                </ProtectedRoute>
+              }
               />
               <Route
                 exact
                 path='/saved-movies'
-                element={<><HeaderAuth /><SavedMovies loggedIn={true} /> <Footer /></>}
-                currentUser={currentUser}
+                element={
+                  <ProtectedRoute allowed={loggedIn}>
+                    <HeaderAuth />
+                    <SavedMovies isLogin={isLogin} />
+                    <Footer />
+                  </ProtectedRoute>
+                }
+                // currentUser={currentUser}
               />
               <Route
                 path='/profile'
                 exact
-                element={<><HeaderAuth /> <Profile loggedIn={true} /> </>}
+                element={
+                  <ProtectedRoute allowed={loggedIn}>
+                    <HeaderAuth />
+                    <Profile
+                      isLogin={isLogin}
+                      handleLogout={handleLogout}
+                      editProfile={editProfile}
+                      currentUser={currentUser}
+                      isEditError={isEditError}
+                      isEditDone={isEditDone}
+                    />
+                  </ProtectedRoute>
+                }
               />
               <Route
                 exact
@@ -69,7 +244,7 @@ function App() {
               />
             </Routes>
         </div>
-      </Router>
+        </TooltipContext.Provider>
     </CurrentUserContext.Provider>
   );
 }

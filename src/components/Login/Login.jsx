@@ -2,23 +2,24 @@ import React, { memo } from 'react';
 import Form from '../Form/Form';
 import './Login.css';
 
-const Login = memo(({ textError, clearTextError }) => {
+const Login = memo(({ authLogin, textError, setTextError }) => {
   function handleSubmit(e, { email, password }) {
     e.preventDefault();
     if (!email || !password) {
       return;
     }
+    authLogin(email, password);
   }
   return (
     <main>
       <section className='login'>
         <Form
-          name='signin'
+          name='sign-in'
           title='Рады видеть!'
           btnName='Войти'
           onSubmit={handleSubmit}
           textError={textError}
-          clearTextError={clearTextError}
+          setTextError={setTextError}
         />
       </section>
     </main>

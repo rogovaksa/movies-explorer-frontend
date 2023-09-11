@@ -1,27 +1,46 @@
-import React from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { useForm } from '../../utils/useForm';
-import Preloader from '../Preloader/Preloader';
+// import Preloader from '../Preloader/Preloader';
+import { CurrentUserContext } from "../../contexts/CurrentUserContext";
 import './Profile.css';
 
-function Profile({ signOut, isLoading }) {
+function Profile({ handleLogout, editProfile, isEditError, isEditDone }) {
 
-  const currentUser = {
-    'name': 'Name',
-    'email': 'email@yandex.ru'
+  const currentUser = useContext(CurrentUserContext);
+  const [disabled, setDisabled] = useState(true);
+
+  const form = useForm();
+  const { email, name } = form.values;
+
+  useEffect(() => {
+    form.setValues({
+      email: currentUser.email,
+      name: currentUser.name,
+    });
+  }, [currentUser]);
+
+  const submitEditProfile = (event) => {
+    event.preventDefault();
+    editProfile(name, email);
   };
-  const form = useForm({ name: currentUser.name, email: currentUser.email });
 
-  function handleSubmit(e) {
-    e.preventDefault();
-  }
-  if (isLoading) {
-    return <Preloader />
-  } else {
+  useEffect(() => {
+    const { name, email } = form.values;
+    if (
+      form.isValid &&
+      (currentUser.name !== name || currentUser.email !== email)
+    ) {
+      setDisabled(false);
+    } else {
+      setDisabled(true);
+    }
+  }, [form.values, currentUser]);
+
     return (
       <main className='profile'>
         <section className='profile__container'>
-          <h2 className='profile__title'>{`Привет, ${currentUser.name}!`}</h2>
-          <form className='profile__form' onSubmit={handleSubmit}>
+          <h2 className='profile__title'>Привет, {currentUser && currentUser.name}!</h2>
+          <form className='profile__form' onSubmit={submitEditProfile}>
             <label className='profile__field'>
               <span className='profile__name'>Имя</span>
               <input
@@ -29,7 +48,7 @@ function Profile({ signOut, isLoading }) {
                 name='name'
                 type='text'
                 onChange={form.handleChange}
-                value={form.values.name || ''}
+                value={name || ""}
                 minLength='2'
                 maxLength='40'
                 required
@@ -45,7 +64,7 @@ function Profile({ signOut, isLoading }) {
                 name='email'
                 type='email'
                 onChange={form.handleChange}
-                value={form.values.email || ''}
+                value={email || ""}
                 minLength='2'
                 maxLength='40'
                 required
@@ -54,24 +73,29 @@ function Profile({ signOut, isLoading }) {
             <span className="profile__error">{`${
               form.errors.email ? form.errors.email : ''
             }`}</span>
-            {/* Изменение состояния кнопки "Редактировать" будет реализовано на следующем этапе при написании функционала приложения */}
+            {isEditError && (
+              <p className="profile__error">Что-то пошло не так...</p>
+            )}
+            {isEditDone && (
+              <p className="profile__error">Ваш профиль успешно обновлен</p>
+            )}
             <button
               type='submit'
               className={`profile__button ${
-                !form.isValid && 'profile__button_disabled'
+                disabled && 'profile__button_disabled'
               }`}
-              disabled={!form.isValid}
+              disabled={disabled}
             >
               Редактировать
             </button>
           </form>
-          <button type='button' className='profile__signout' onClick={signOut}>
+          <button type='button' className='profile__signout' onClick={handleLogout}>
             Выйти из аккаунта
           </button>
         </section>
       </main>
     );
   }
-}
+
 
 export default Profile;

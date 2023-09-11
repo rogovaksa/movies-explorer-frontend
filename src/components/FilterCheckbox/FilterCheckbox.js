@@ -1,16 +1,15 @@
 import React from 'react';
 import './FilterCheckbox.css';
 
-function FilterCheckbox({ isShortFilms, setIsShortFilms }) {
+function FilterCheckbox({ value, onChange }) {
   return (
     <div className='filter'>
       <label className='filter__checkbox'>
         <input
           type='checkbox'
           className='filter__input'
-          onClick={() => {
-            setIsShortFilms(!isShortFilms);
-          }}
+          checked={value}
+          onChange={onChange}
         />
         <span className='filter__slider' />
       </label>

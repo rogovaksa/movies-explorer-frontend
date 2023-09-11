@@ -1,9 +1,13 @@
 import React from 'react';
+// import { CurrentUserContext } from "../../contexts/CurrentUserContext";
 import { Link } from 'react-router-dom';
 import './Header.css';
 import logo from '../../images/logo.svg';
 
 function Header () {
+
+  // const currentUser = React.useContext(CurrentUserContext);
+
   return (
     <header className='header'>
       <div className='header__container'>

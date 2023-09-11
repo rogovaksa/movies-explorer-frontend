@@ -5,7 +5,7 @@ import './Form.css';
 import logo from '../../images/logo.svg';
 
 const Form = memo(
-  ({ name, title, onSubmit, btnName }) => {
+  ({ name, title, onSubmit, btnName, textError }) => {
 
     const form = useForm();
 
@@ -79,9 +79,10 @@ const Form = memo(
           <span className='form__error'>{`${
             form.errors.password ? form.errors.password : ''
           }`}</span>
+          {textError ? <span className="form__error">{textError}</span> : ""}
           <button
             type='submit'
-            className={`form__button ${!form.isValid && 'form__button_disabled'} ${name === 'signin' && 'form__button_login'}`}
+            className={`form__button ${!form.isValid && 'form__button_disabled'} ${name === 'sign-in' && 'form__button_login'}`}
             disabled={!form.isValid}
           >
             {btnName}
@@ -94,7 +95,7 @@ const Form = memo(
               </Link>
             </p>
           )}
-          {name === 'signin' && (
+          {name === 'sign-in' && (
             <p className='form__text'>
               Еще не зарегистрированы?{' '}
               <Link to='/signup' className='form__link'>
