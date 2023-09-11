@@ -43,7 +43,6 @@ function App() {
     [tooltipMessage]
   );
 
-  //проверка токена и установка login true
   useEffect(() => {
     const jwt = localStorage.getItem("jwt");
     if (jwt) {
@@ -64,7 +63,6 @@ function App() {
     }
   }, []);
 
-  /*Обработчик регистрации*/
   function handleAuthRegister(name, email, password) {
     mainApi
       .register(name, email, password)
@@ -86,7 +84,6 @@ function App() {
       });
   }
 
-  /*Обработчик логина*/
   function handleAuthLogin(email, password) {
     mainApi
       .authorize(email, password)
@@ -111,7 +108,6 @@ function App() {
       });
   }
 
-  // Обработчик кнопки Редактировать на странице профиля
   function editProfile(name, email) {
     mainApi
       .saveUserInfoToServer(name, email)
@@ -121,7 +117,7 @@ function App() {
         setTimeout(
           function() {
             setIsEditDone(false);
-          }, 5000
+          }, 3000
         );
         setIsEditError(false);
       })
@@ -133,7 +129,6 @@ function App() {
       });
   }
 
-  //выход из учетной записи и удаление токена из локального хранилища
   function handleLogout() {
     setCurrentUser({});
     localStorage.clear();
@@ -141,7 +136,6 @@ function App() {
     navigate("/");
   }
 
-  //запрос инфо при успешном токене
   useEffect(() => {
     if (isLogin) {
       mainApi
@@ -223,7 +217,6 @@ function App() {
                     <Footer />
                   </ProtectedRoute>
                 }
-                // currentUser={currentUser}
               />
               <Route
                 path='/profile'

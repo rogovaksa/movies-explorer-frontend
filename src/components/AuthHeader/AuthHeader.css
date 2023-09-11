@@ -56,10 +56,18 @@
   margin-right: 17px;
 }
 
+.auth-header__text_main{
+  color: white;
+}
+
 .auth-header__icon {
   padding: 8px 7px;
   background:#F9F9F9;
   border-radius: 4px;
+}
+
+.auth-header__icon_main {
+  background:rgba(43, 224, 128, 1);
 }
 
 .auth-header__burger {

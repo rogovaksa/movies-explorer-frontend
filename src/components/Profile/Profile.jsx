@@ -77,7 +77,7 @@ function Profile({ handleLogout, editProfile, isEditError, isEditDone }) {
               <p className="profile__error">Что-то пошло не так...</p>
             )}
             {isEditDone && (
-              <p className="profile__error">Ваш профиль успешно обновлен</p>
+              <p className="profile__success">Ваш профиль успешно обновлен</p>
             )}
             <button
               type='submit'

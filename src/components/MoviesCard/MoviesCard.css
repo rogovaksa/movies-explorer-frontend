@@ -104,6 +104,12 @@
   }
 }
 
+@media(max-width: 720px) {
+  .movies__list-delete-button {
+    opacity: 1;
+  }
+}
+
 @media(max-width: 420px) {
   .movies__list-poster {
     width: 300px;

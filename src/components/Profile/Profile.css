@@ -64,6 +64,16 @@
   margin: 6px 0;
 }
 
+.profile__success{
+  display: block;
+  text-align: center;
+  color: #465DFF;
+  font-size: 10px;
+  line-height: 12px;
+  font-weight: 400;
+  margin: 6px 0;
+}
+
 .profile__button {
   display: block;
   margin: 220px auto 16px auto;

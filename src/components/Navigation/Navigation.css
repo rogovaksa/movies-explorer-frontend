@@ -22,6 +22,10 @@
   transition: linear 0.3s;
 }
 
+.navigation__link_main {
+  color: white;
+}
+
 .navigation__link:hover {
   opacity: 0.7;
 }

@@ -30,8 +30,8 @@ function AuthHeader() {
       </div>
       <div className="auth-header__containers">
         <Link to="/profile" className="auth-header__account">
-          <span className="auth-header__text">Аккаунт</span>
-          <img className="auth-header__icon" alt="Аккаунт" src={icon}></img>
+          <span className={`auth-header__text ${pathname === "/" ? "auth-header__text_main" : ""}`}>Аккаунт</span>
+          <img className={`auth-header__icon ${pathname === "/" ? "auth-header__icon_main" : ""}`} alt="Аккаунт" src={icon}></img>
         </Link>
       </div>
       <div
