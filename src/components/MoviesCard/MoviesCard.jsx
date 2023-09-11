@@ -76,7 +76,7 @@ function MoviesCard({ movie }) {
           savedMovies.splice(index, 1);
           localStorage.setItem('savedMovies', JSON.stringify(savedMovies));
           if (location.pathname === '/saved-movies') {
-            evt.target.closest('.movies__list-item').remove();
+            evt.target.closest('.movies').remove();
           }
         })
         .catch(() => setTooltipMessage(NO_CONNECTION_MESSAGE));
