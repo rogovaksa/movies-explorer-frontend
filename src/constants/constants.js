@@ -1,6 +1,6 @@
 export const URL_BEATFILM = "https://api.nomoreparties.co/beatfilm-movies";
-// export const URL_MAIN = "https://api.rogovaksa.nomoreparties.co";
-export const URL_MAIN = "http://localhost:3000";
+export const URL_MAIN = "https://api.rogovaksa.nomoreparties.co";
+// export const URL_MAIN = "http://localhost:3000";
 export const DEFAULT_MESSAGE = "Что-то пошло не так...";
 export const NO_CONNECTION_MESSAGE = "Нет соединения с сервером";
 export const NOT_FOUND_MESSAGE = "Ничего не найдено";
