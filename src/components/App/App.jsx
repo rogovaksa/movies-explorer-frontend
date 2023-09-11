@@ -118,6 +118,11 @@ function App() {
       .then((userData) => {
         setCurrentUser(userData);
         setIsEditDone(true);
+        setTimeout(
+          function() {
+            setIsEditDone(false);
+          }, 5000
+        );
         setIsEditError(false);
       })
       .catch(() => {

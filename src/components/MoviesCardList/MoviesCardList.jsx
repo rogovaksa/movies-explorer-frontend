@@ -26,7 +26,6 @@ function MoviesCardList({ movies, errorMessage }) {
     if (location.pathname === "/saved-movies") {
       setMaxMovies(movies.length);
     }
-
     if (width <= 720) {
       setMaxMovies(MAX_MOVIES_DEFAULT);
       setStep(MAX_MOVIES_STEP_DEFAULT);
