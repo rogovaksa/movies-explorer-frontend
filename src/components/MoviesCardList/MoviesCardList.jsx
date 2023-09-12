@@ -5,12 +5,13 @@ import MoviesCard from '../MoviesCard/MoviesCard';
 import {
   MAX_MOVIES_1280,
   MAX_MOVIES_768,
-  // MAX_MOVIES_1000,
   MAX_MOVIES_DEFAULT,
   MAX_MOVIES_STEP_1280,
   MAX_MOVIES_STEP_1000,
   MAX_MOVIES_STEP_DEFAULT,
 } from "../../constants/constants";
+import { WIDTH_720, WIDTH_1000, WIDTH_1279 } from '../../constants/constants';
+
 
 function MoviesCardList({ movies, errorMessage }) {
   const [maxMovies, setMaxMovies] = useState(0);
@@ -25,14 +26,15 @@ function MoviesCardList({ movies, errorMessage }) {
     const width = window.innerWidth;
     if (location.pathname === "/saved-movies") {
       setMaxMovies(movies.length);
+      return;
     }
-    if (width <= 720) {
+    if (width <= WIDTH_720) {
       setMaxMovies(MAX_MOVIES_DEFAULT);
       setStep(MAX_MOVIES_STEP_DEFAULT);
-    } else if (width <= 1000) {
+    } else if (width <= WIDTH_1000) {
       setMaxMovies(MAX_MOVIES_768);
       setStep(MAX_MOVIES_STEP_DEFAULT);
-    } else if (width <= 1279) {
+    } else if (width <= WIDTH_1279) {
       setMaxMovies(MAX_MOVIES_1280);
       setStep(MAX_MOVIES_STEP_1000);
     } else {
@@ -43,12 +45,7 @@ function MoviesCardList({ movies, errorMessage }) {
 
   useEffect(() => {
     setCardsTemplate();
-    window.addEventListener("resize", () => {
-      setTimeout(() => {
-        setCardsTemplate();
-      }, 500);
-    });
-  }, []);
+  }, [movies]);
 
     return (
         <section className='movies-cards'>

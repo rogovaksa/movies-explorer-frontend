@@ -11,7 +11,7 @@ import Footer from '../Footer/Footer';
 import Login from '../Login/Login';
 import Register from '../Register/Register';
 
-import HeaderAuth from '../AuthHeader/AuthHeader';
+import HeaderAuth from "../AuthHeader/AuthHeader";
 import Movies from '../Movies/Movies';
 import SavedMovies from '../SavedMovies/SavedMovies';
 import Profile from '../Profile/Profile';
@@ -37,12 +37,16 @@ function App() {
   const [isEditDone, setIsEditDone] = useState(false);
   const [tooltipMessage, setTooltipMessage] = useState("");
   const loggedIn = localStorage.getItem("jwt") || false;
+  const [isLoadingEditProfile, setIsLoadingEditProfile] = useState(false);
+  const [isLoadingRegister, setIsLoadingRegister] = useState(false);
+  const [isLoadingLogin, setIsLoadingLogin] = useState(false);
 
   const tooltipContext = useMemo(
     () => ({ tooltipMessage, setTooltipMessage }),
     [tooltipMessage]
   );
 
+  // проверка токена и установка login true
   useEffect(() => {
     const jwt = localStorage.getItem("jwt");
     if (jwt) {
@@ -63,7 +67,9 @@ function App() {
     }
   }, []);
 
+  // регистрация
   function handleAuthRegister(name, email, password) {
+    setIsLoadingRegister(true);
     mainApi
       .register(name, email, password)
       .then((data) => {
@@ -80,11 +86,14 @@ function App() {
         }
       })
       .finally(() => {
+        setIsLoadingRegister(false)
         setTextError("");
       });
   }
 
+  // логин
   function handleAuthLogin(email, password) {
+    setIsLoadingLogin(true);
     mainApi
       .authorize(email, password)
       .then((jwt) => {
@@ -104,11 +113,14 @@ function App() {
         console.log(err);
       })
       .finally(() => {
+        setIsLoadingLogin(false)
         setTextError("");
       });
   }
 
+  // редактировать профиль Profile
   function editProfile(name, email) {
+    setIsLoadingEditProfile(true);
     mainApi
       .saveUserInfoToServer(name, email)
       .then((userData) => {
@@ -125,17 +137,20 @@ function App() {
         setIsEditError(true);
       })
       .finally(() => {
+        setIsLoadingEditProfile(false);
         setIsEditError(false);
       });
   }
 
+  // выход из учетной записи и удаление токена из локального хранилища
   function handleLogout() {
-    setCurrentUser({});
     localStorage.clear();
+    setCurrentUser({});
     setIsLogin(false);
     navigate("/");
   }
 
+  // запрос инфо при успешном токене
   useEffect(() => {
     if (isLogin) {
       mainApi
@@ -177,6 +192,7 @@ function App() {
                       authLogin={handleAuthLogin}
                       textError={textError}
                       setTextError={setTextError}
+                      isLoadingLogin={isLoadingLogin}
                     />
                   )
                 }
@@ -192,6 +208,7 @@ function App() {
                       authRegister={handleAuthRegister}
                       textError={textError}
                       setTextError={setTextError}
+                      isLoadingRegister={isLoadingRegister}
                     />
                   )
                 }
@@ -231,6 +248,7 @@ function App() {
                       currentUser={currentUser}
                       isEditError={isEditError}
                       isEditDone={isEditDone}
+                      isLoadingEditProfile={isLoadingEditProfile}
                     />
                   </ProtectedRoute>
                 }

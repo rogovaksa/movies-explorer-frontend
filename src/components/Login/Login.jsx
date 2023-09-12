@@ -2,7 +2,8 @@ import React, { memo } from 'react';
 import Form from '../Form/Form';
 import './Login.css';
 
-const Login = memo(({ authLogin, textError, setTextError }) => {
+const Login = memo(({ authLogin, textError, setTextError, isLoadingLogin }) => {
+
   function handleSubmit(e, { email, password }) {
     e.preventDefault();
     if (!email || !password) {
@@ -20,6 +21,7 @@ const Login = memo(({ authLogin, textError, setTextError }) => {
           onSubmit={handleSubmit}
           textError={textError}
           setTextError={setTextError}
+          isLoading={isLoadingLogin}
         />
       </section>
     </main>

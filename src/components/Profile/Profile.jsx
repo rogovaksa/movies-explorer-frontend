@@ -2,9 +2,10 @@ import React, { useContext, useEffect, useState } from 'react';
 import { useForm } from '../../utils/useForm';
 // import Preloader from '../Preloader/Preloader';
 import { CurrentUserContext } from "../../contexts/CurrentUserContext";
+import { PATTERN_EMAIL } from '../../constants/constants';
 import './Profile.css';
 
-function Profile({ handleLogout, editProfile, isEditError, isEditDone }) {
+function Profile({ handleLogout, editProfile, isEditError, isEditDone, isLoadingEditProfile }) {
 
   const currentUser = useContext(CurrentUserContext);
   const [disabled, setDisabled] = useState(true);
@@ -52,6 +53,7 @@ function Profile({ handleLogout, editProfile, isEditError, isEditDone }) {
                 minLength='2'
                 maxLength='40'
                 required
+                disabled={isLoadingEditProfile}
               />
             </label>
             <span className="profile__error">{`${
@@ -67,7 +69,9 @@ function Profile({ handleLogout, editProfile, isEditError, isEditDone }) {
                 value={email || ""}
                 minLength='2'
                 maxLength='40'
+                pattern={PATTERN_EMAIL}
                 required
+                disabled={isLoadingEditProfile}
               />
             </label>
             <span className="profile__error">{`${

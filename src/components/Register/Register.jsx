@@ -2,7 +2,7 @@ import React, { memo } from 'react';
 import './Register.css';
 import Form from '../Form/Form';
 
-const Register = memo(({ authRegister, textError, setTextError }) => {
+const Register = memo(({ authRegister, textError, setTextError, isLoadingRegister }) => {
 
   function handleSubmit(e, { name, email, password }) {
     e.preventDefault();
@@ -19,6 +19,7 @@ const Register = memo(({ authRegister, textError, setTextError }) => {
           onSubmit={handleSubmit}
           textError={textError}
           setTextError={setTextError}
+          isLoading={isLoadingRegister}
         />
       </section>
     </main>

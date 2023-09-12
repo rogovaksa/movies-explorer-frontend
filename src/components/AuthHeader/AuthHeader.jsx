@@ -1,6 +1,6 @@
 import React from "react";
 import { useLocation } from "react-router-dom";
-import { Link } from 'react-router-dom';
+import { Link, NavLink } from 'react-router-dom';
 
 import './AuthHeader.css';
 import logo from '../../images/logo.svg';
@@ -54,19 +54,19 @@ function AuthHeader() {
           <nav className="auth-header__burger-nav">
             <ul className="auth-header__burger-list">
               <li className="auth-header__burger-item">
-                <Link className="auth-header__burger-link" to="/">
+                <NavLink to="/" className={({ isActive }) =>(isActive ? "auth-header__burger-link auth-header__burger-link_active" : "auth-header__burger-link")} >
                   Главная
-                </Link>
+                </NavLink>
               </li>
               <li className="auth-header__burger-item">
-                <Link className="auth-header__burger-link" to="/movies">
+                <NavLink to="/movies" className={({ isActive }) =>(isActive ? "auth-header__burger-link auth-header__burger-link_active" : "auth-header__burger-link")} >
                   Фильмы
-                </Link>
+                </NavLink>
               </li>
               <li className="auth-header__burger-item">
-                <Link className="auth-header__burger-link" to="/saved-movies">
+                <NavLink to="/saved-movies" className={({ isActive }) =>(isActive ? "auth-header__burger-link auth-header__burger-link_active" : "auth-header__burger-link")} >
                   Сохранённые фильмы
-                </Link>
+                </NavLink>
               </li>
             </ul>
           </nav>

@@ -1,16 +1,14 @@
 import React, { useState, useEffect } from 'react';
-import { useLocation } from "react-router-dom";
 import './SearchForm.css';
 import FilterCheckbox from '../FilterCheckbox/FilterCheckbox';
 
-function SearchForm({ handleSearch }) {
+function SearchForm({ handleSearch, queryKey, shorstKey }) {
 
   const [inputValue, setInputValue] = useState("");
   const [shorts, setShorts] = useState(false);
 
   const [placeholderContent, setPlaceholderContent] = useState("Movie");
   const [error, setError] = useState(false);
-  const { pathname } = useLocation();
 
   const handleInput = (evt) => {
     setInputValue(evt.target.value);
@@ -19,9 +17,7 @@ function SearchForm({ handleSearch }) {
   const handleCheckbox = () => {
     setShorts(!shorts);
     handleSearch(inputValue, !shorts);
-    if (pathname === "/movies") {
-      localStorage.setItem("shorts", !shorts);
-    }
+    localStorage.setItem(shorstKey, !shorts);
   };
 
   const handleSubmit = (evt) => {
@@ -33,23 +29,21 @@ function SearchForm({ handleSearch }) {
     }
     setError(false);
     setPlaceholderContent("Movie");
-    localStorage.setItem("query", inputValue);
+    localStorage.setItem(queryKey, inputValue);
     handleSearch(inputValue, shorts);
   };
 
   useEffect(() => {
-    if (pathname === "/movies") {
-      const savedInputValue = localStorage.getItem("query");
-      const savedShorts = JSON.parse(localStorage.getItem("shorts"));
-      if (savedInputValue) {
-        setInputValue(savedInputValue);
-      }
-      if (savedShorts) {
-        setShorts(savedShorts);
-      }
-      if (savedInputValue || savedShorts === true) {
-        handleSearch(savedInputValue, savedShorts);
-      }
+    const savedInputValue = localStorage.getItem(queryKey);
+    const savedShorts = JSON.parse(localStorage.getItem(shorstKey));
+    if (savedInputValue) {
+      setInputValue(savedInputValue);
+    }
+    if (savedShorts) {
+      setShorts(savedShorts);
+    }
+    if (savedInputValue || savedShorts === true) {
+      handleSearch(savedInputValue, savedShorts);
     }
   }, []);
 

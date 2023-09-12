@@ -19,6 +19,7 @@ function SavedMovies() {
   const handleSearch = (query, isShort) => {
     setLoading(true);
     setErrorMessage('');
+
     const savedMovies = JSON.parse(localStorage.getItem('savedMovies'));
     const filtered = searchFilter(savedMovies, query, isShort);
 
@@ -47,7 +48,11 @@ function SavedMovies() {
     return (
       <main>
         <section className='saved-movies'>
-          <SearchForm handleSearch={handleSearch} />
+          <SearchForm
+            handleSearch={handleSearch}
+            queryKey={"savedMoviesQuery"}
+            shorstKey={"savedMoviesShorts"}
+          />
           {loading
             ? <Preloader />
             : <MoviesCardList movies={movies} errorMessage={errorMessage} />

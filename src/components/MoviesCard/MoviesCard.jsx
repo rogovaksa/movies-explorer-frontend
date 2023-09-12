@@ -14,6 +14,7 @@ function MoviesCard({ movie }) {
   const location = useLocation();
 
   const { setTooltipMessage } = useContext(TooltipContext);
+
   function handleCardMouseOver() {
     setIsDeleteButtonVisible(true);
   }
@@ -65,6 +66,7 @@ function MoviesCard({ movie }) {
         .then(() => {
           setSaved(false);
           const savedMovies = JSON.parse(localStorage.getItem('savedMovies'));
+
           // Поиск и удаление сохраненного фильма из массива в localStorage
           let index = 0;
           for (let i = 0; i < savedMovies.length; i += 1) {

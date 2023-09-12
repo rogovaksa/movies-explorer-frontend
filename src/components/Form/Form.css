@@ -104,6 +104,11 @@
   opacity: 0.8;
 }
 
+
+.form__button_disabled {
+  opacity: 0.2;
+}
+
 .form__button_disabled:hover {
   opacity: 0.2;
   cursor: not-allowed;

@@ -22,6 +22,10 @@
   transition: linear 0.3s;
 }
 
+.navigation__link_active {
+  font-weight: 500;
+}
+
 .navigation__link_main {
   color: white;
 }

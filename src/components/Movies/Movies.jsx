@@ -68,6 +68,8 @@ function Movies() {
         <div className='movies-section__container'>
           <SearchForm
             handleSearch={handleSearch}
+            queryKey={"moviesQuery"}
+            shorstKey={"moviesShorts"}
           />
           {loading
             ? <Preloader />

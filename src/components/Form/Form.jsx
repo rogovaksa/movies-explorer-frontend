@@ -1,11 +1,12 @@
 import React, { memo } from 'react';
 import { Link } from 'react-router-dom';
 import { useForm } from '../../utils/useForm';
+import { PATTERN_EMAIL } from '../../constants/constants';
 import './Form.css';
 import logo from '../../images/logo.svg';
 
 const Form = memo(
-  ({ name, title, onSubmit, btnName, textError }) => {
+  ({ name, title, onSubmit, btnName, textError, isLoading }) => {
 
     const form = useForm();
 
@@ -41,6 +42,7 @@ const Form = memo(
                 maxLength='30'
                 required
                 onChange={form.handleChange}
+                disabled={isLoading}
               />
               <span className='form__error'>{`${
                 form.errors.name ? form.errors.name : ''
@@ -58,7 +60,9 @@ const Form = memo(
             minLength='5'
             maxLength='30'
             required
+            pattern={PATTERN_EMAIL}
             onChange={form.handleChange}
+            disabled={isLoading}
           />
           <span className='form__error'>{`${
             form.errors.email ? form.errors.email : ''
@@ -75,6 +79,7 @@ const Form = memo(
             maxLength='20'
             required
             onChange={form.handleChange}
+            disabled={isLoading}
           />
           <span className='form__error'>{`${
             form.errors.password ? form.errors.password : ''

@@ -8,14 +8,9 @@ export default function searchFilter(array, query, short) {
   let filtered = [...array];
 
   if (query) {
-    let filteredRU = filtered.filter((element) => element.nameRU
+    filtered = filtered.filter((element) => element.nameRU
       .toLowerCase()
       .includes(query.toLowerCase()));
-    let filteredEN = filtered.filter((element) => element.nameEN
-      .toLowerCase()
-      .includes(query.toLowerCase()));
-    const filteredAll = [].concat(filteredRU, filteredEN);
-    filtered = [...new Map(filteredAll.map((m) => [m.id, m])).values()];
   }
 
   if (short) {

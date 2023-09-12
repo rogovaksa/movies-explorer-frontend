@@ -165,6 +165,10 @@
   text-align: center;
 }
 
+.auth-header__burger-link_active {
+  border-bottom: 2px solid #000;
+}
+
 .auth-header__burger-link:hover {
   opacity: 0.5;
 }
