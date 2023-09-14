@@ -79,10 +79,10 @@ function App() {
       })
       .catch((err) => {
         if (err.status === CONFLICT_ERROR_CODE) {
-          setTextError("This email already exists");
+          setTextError("Пользователь с таким email уже существует");
         } else {
           console.log(err);
-          setTextError("Server error");
+          setTextError("Ошибка на сервере");
         }
       })
       .finally(() => {
@@ -105,10 +105,10 @@ function App() {
       })
       .catch((err) => {
         if (err.status === UNAUTH_ERROR_CODE) {
-          setTextError("Wrong email or password");
+          setTextError("Неверный email или пароль");
         } else {
           console.log(err);
-          setTextError("Server error");
+          setTextError("Ошибка на сервере");
         }
         console.log(err);
       })

@@ -10,7 +10,7 @@ import {
   MAX_MOVIES_STEP_1000,
   MAX_MOVIES_STEP_DEFAULT,
 } from "../../constants/constants";
-import { WIDTH_720, WIDTH_1000, WIDTH_1279 } from '../../constants/constants';
+import { WIDTH_desktop, WIDTH_pad, WIDTH_mobile } from '../../constants/constants';
 
 
 function MoviesCardList({ movies, errorMessage }) {
@@ -28,13 +28,13 @@ function MoviesCardList({ movies, errorMessage }) {
       setMaxMovies(movies.length);
       return;
     }
-    if (width <= WIDTH_720) {
+    if (width <= WIDTH_mobile) {
       setMaxMovies(MAX_MOVIES_DEFAULT);
       setStep(MAX_MOVIES_STEP_DEFAULT);
-    } else if (width <= WIDTH_1000) {
+    } else if (width <= WIDTH_pad) {
       setMaxMovies(MAX_MOVIES_768);
       setStep(MAX_MOVIES_STEP_DEFAULT);
-    } else if (width <= WIDTH_1279) {
+    } else if (width <= WIDTH_desktop) {
       setMaxMovies(MAX_MOVIES_1280);
       setStep(MAX_MOVIES_STEP_1000);
     } else {

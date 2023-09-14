@@ -47,6 +47,7 @@ function MoviesCard({ movie }) {
         .then((savedMovie) => {
           setSaved(true);
           setSavedId(savedMovie._id);
+          console.log(setSavedId);
           let savedMovies = JSON.parse(localStorage.getItem('savedMovies'));
           if (!savedMovies) {
             savedMovies = [];
