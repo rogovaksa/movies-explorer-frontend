@@ -1,12 +1,11 @@
 import React, { useContext, useState, useEffect } from 'react';
 import './MoviesCard.css';
-// import poster from '../../images/movies/movie-1.jpg';
 import { useLocation } from 'react-router-dom';
 import mainApi from '../../utils/MainApi';
 import TooltipContext from '../../contexts/TooltipContext';
 import { DEFAULT_MESSAGE, NO_CONNECTION_MESSAGE, MINUTS_IN_HOUR } from '../../constants/constants';
 
-function MoviesCard({ movie }) {
+function MoviesCard({ movie, deleteMovie }) {
 
   const [savedId, setSavedId] = useState('');
   const [saved, setSaved] = useState(false);
@@ -47,7 +46,6 @@ function MoviesCard({ movie }) {
         .then((savedMovie) => {
           setSaved(true);
           setSavedId(savedMovie._id);
-          console.log(setSavedId);
           let savedMovies = JSON.parse(localStorage.getItem('savedMovies'));
           if (!savedMovies) {
             savedMovies = [];
@@ -79,7 +77,7 @@ function MoviesCard({ movie }) {
           savedMovies.splice(index, 1);
           localStorage.setItem('savedMovies', JSON.stringify(savedMovies));
           if (location.pathname === '/saved-movies') {
-            evt.target.closest('.movies').remove();
+            deleteMovie(movie._id)
           }
         })
         .catch(() => setTooltipMessage(NO_CONNECTION_MESSAGE));
@@ -119,19 +117,6 @@ function MoviesCard({ movie }) {
               ? `https://api.nomoreparties.co/${movie.image.url}`
               : movie.image} className="movies__list-poster"/>
         </a>
-
-        {/* <div className='movies__list-description'>
-          <div className='movies__list-name'>
-            <p className='movies__list-title'>33 слова о дизайне</p>
-            <p className='movies__list-duration'>1ч 47м</p>
-          </div>
-          {props.saved ?
-          <button className={`movies__list-delete-button`}></button> :
-          <button className={`movies__list-save-button ${isSaved ? 'movies__list-save-button_clicked' : ''}`} onClick={handleSaveButtonCLick}></button>}
-        </div>
-
-        <img src={poster} alt='Обложка фильма' className='movies__list-poster'/> */}
-
       </li>
       )
 

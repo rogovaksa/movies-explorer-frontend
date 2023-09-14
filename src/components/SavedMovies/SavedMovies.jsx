@@ -19,7 +19,6 @@ function SavedMovies() {
   const handleSearch = (query, isShort) => {
     setLoading(true);
     setErrorMessage('');
-
     const savedMovies = JSON.parse(localStorage.getItem('savedMovies'));
     const filtered = searchFilter(savedMovies, query, isShort);
 
@@ -37,6 +36,7 @@ function SavedMovies() {
         const user = localStorage.getItem('userId');
         const ownMovies = savedMovies.filter((film) => film.owner === user);
         localStorage.setItem('savedMovies', JSON.stringify(ownMovies));
+		setMovies(ownMovies)
         setLoading(false);
         if (savedMovies.length === 0) {
           setErrorMessage(EMPTY_LIST_MESSAGE);
@@ -55,7 +55,7 @@ function SavedMovies() {
           />
           {loading
             ? <Preloader />
-            : <MoviesCardList movies={movies} errorMessage={errorMessage} />
+            : <MoviesCardList movies={movies} errorMessage={errorMessage} setMovies={setMovies} />
           }
         </section>
       </main>

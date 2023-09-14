@@ -13,7 +13,7 @@ import {
 import { WIDTH_desktop, WIDTH_pad, WIDTH_mobile } from '../../constants/constants';
 
 
-function MoviesCardList({ movies, errorMessage }) {
+function MoviesCardList({ movies, errorMessage, setMovies }) {
   const [maxMovies, setMaxMovies] = useState(0);
   const [step, setStep] = useState(0);
   const location = useLocation();
@@ -47,6 +47,10 @@ function MoviesCardList({ movies, errorMessage }) {
     setCardsTemplate();
   }, [movies]);
 
+  const deleteMovie = (id) => {
+	const newMovies = movies.filter((movie) => movie._id !== id);
+	setMovies(newMovies);
+  }
     return (
         <section className='movies-cards'>
           {errorMessage ? (
@@ -56,7 +60,7 @@ function MoviesCardList({ movies, errorMessage }) {
               {movies.map((movie, index) => {
                 if (index < maxMovies) {
                   return (
-                    <MoviesCard key={movie.id || movie.movieId} movie={movie} />
+                    <MoviesCard key={movie.id || movie.movieId} movie={movie} deleteMovie={deleteMovie} />
                   );
                 }
                 return null;
@@ -68,7 +72,6 @@ function MoviesCardList({ movies, errorMessage }) {
                 Еще
               </button>
             )}
-            {/* <button className={props.saved ? 'movies-cards__more-button movies-cards__more-button_invisible' : 'movies-cards__more-button'}>Еще</button> */}
         </section>
     )
 }

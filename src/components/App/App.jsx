@@ -46,22 +46,26 @@ function App() {
     [tooltipMessage]
   );
 
+  const getUserInfo = (jwt) => {
+	mainApi
+	.getUserInfoFromServer(jwt)
+	.then((user) => {
+	  if (user) {
+		setIsLogin(true);
+		localStorage.setItem("userId", user._id);
+		setCurrentUser(user);
+	  }
+	})
+	.catch((err) => {
+	  console.log(err);
+	});
+  }
+
   // проверка токена и установка login true
   useEffect(() => {
     const jwt = localStorage.getItem("jwt");
     if (jwt) {
-      mainApi
-        .getUserInfoFromServer(jwt)
-        .then((user) => {
-          if (user) {
-            setIsLogin(true);
-            localStorage.setItem("userId", user._id);
-            setCurrentUser(user);
-          }
-        })
-        .catch((err) => {
-          console.log(err);
-        });
+		getUserInfo(jwt)
     } else {
       setIsLogin(false);
     }
@@ -99,6 +103,7 @@ function App() {
       .then((jwt) => {
         if (jwt.token) {
           localStorage.setItem("jwt", jwt.token);
+		  getUserInfo(jwt)
           setIsLogin(true);
           navigate("/movies");
         }

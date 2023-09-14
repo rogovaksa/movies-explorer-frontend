@@ -46,7 +46,26 @@ function Movies() {
   };
 
   useEffect(() => {
-    const savedMovies = localStorage.getItem('savedMovies');
+    const movies = JSON.parse(localStorage.getItem('movies'));
+
+    if (!movies) {
+      setLoading(true);
+      moviesApi.getAllMovies()
+        .then((films) => {
+          if (films.length > 0) {
+            localStorage.setItem('movies', JSON.stringify(films));
+          }
+        })
+        .catch(() => {
+          setErrorMessage(MOVVIES_MESSAGE);
+        })
+		.finally(() => {
+			setLoading(false);
+		});
+    }
+
+	const savedMovies = JSON.parse(localStorage.getItem('savedMovies'));
+
     if (!savedMovies) {
       setLoading(true);
       mainApi.getUserMovies()
@@ -54,11 +73,13 @@ function Movies() {
           if (films.length > 0) {
             localStorage.setItem('savedMovies', JSON.stringify(films));
           }
-          setLoading(false);
         })
         .catch(() => {
           setErrorMessage(MOVVIES_MESSAGE);
-        });
+        })
+		.finally(() => {
+			setLoading(false);
+		});
     }
   }, []);
 
