@@ -1,56 +1,44 @@
 import React, { useState, useEffect } from "react";
 import { useLocation } from "react-router-dom";
+import useResize from "../../utils/useResize";
 import './MoviesCardList.css';
 import MoviesCard from '../MoviesCard/MoviesCard';
 import {
-  MAX_MOVIES_1280,
-  MAX_MOVIES_1000,
-  // MAX_MOVIES_768,
-  MAX_MOVIES_DEFAULT,
-  MAX_MOVIES_STEP_1280,
-  MAX_MOVIES_STEP_1000,
+  MAX_MOVIES_DESKTOP,
+  MAX_MOVIES_TAB,
+  MAX_MOVIES_MOBILE,
+  MAX_MOVIES_STEP_DESKTOP,
   MAX_MOVIES_STEP_DEFAULT,
+  WIDTH_DESKTOP,
+  WIDTH_MOBILE
 } from "../../constants/constants";
-import {
-  WIDTH_desktop,
-  // WIDTH_pad,
-  WIDTH_mobile
-} from '../../constants/constants';
-
 
 function MoviesCardList({ movies, errorMessage, setMovies }) {
+
+  const location = useLocation();
   const [maxMovies, setMaxMovies] = useState(0);
   const [step, setStep] = useState(0);
-  const location = useLocation();
 
-  const showMoreMovies = () => {
+  const width = useResize(); //при любом изменении ширины экрана
+
+  function showMoreMovies() {
     setMaxMovies(maxMovies + step);
-  };
-
-  const setCardsTemplate = () => {
-    const width = window.innerWidth;
-    if (location.pathname === "/saved-movies") {
-      setMaxMovies(movies.length);
-      return;
-    }
-    if (width <= WIDTH_mobile) {
-      setMaxMovies(MAX_MOVIES_DEFAULT);
-      setStep(MAX_MOVIES_STEP_DEFAULT);
-    // } else if (width <= WIDTH_pad) {
-    //   setMaxMovies(MAX_MOVIES_768);
-    //   setStep(MAX_MOVIES_STEP_DEFAULT);
-    } else if (width <= WIDTH_desktop) {
-      setMaxMovies(MAX_MOVIES_1000);
-      setStep(MAX_MOVIES_STEP_1000);
-    } else {
-      setMaxMovies(MAX_MOVIES_1280);
-      setStep(MAX_MOVIES_STEP_1280);
-    }
-  };
-
+  }
   useEffect(() => {
-    setCardsTemplate();
-  }, [movies]);
+    if (width >= WIDTH_DESKTOP) {
+      setMaxMovies(MAX_MOVIES_DESKTOP);
+      setStep(MAX_MOVIES_STEP_DESKTOP);
+    }
+    if (width > WIDTH_MOBILE && width < WIDTH_DESKTOP) {
+      setMaxMovies(MAX_MOVIES_TAB);
+      setStep(MAX_MOVIES_STEP_DEFAULT);
+    }
+    if (width <= WIDTH_MOBILE) {
+      setMaxMovies(MAX_MOVIES_MOBILE);
+      setStep(MAX_MOVIES_STEP_DEFAULT);
+    }
+  }, [width]);
+
 
   const deleteMovie = (id) => {
 	const newMovies = movies.filter((movie) => movie._id !== id);
