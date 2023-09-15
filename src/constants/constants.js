@@ -27,6 +27,6 @@ export const MINUTS_IN_HOUR = 60;
 export const UNAUTH_ERROR_CODE = 401;
 export const CONFLICT_ERROR_CODE = 409;
 
-export const WIDTH_desktop = 1172;
+export const WIDTH_desktop = 1170;
 export const WIDTH_pad = 722;
-export const WIDTH_mobile = 721;
+export const WIDTH_mobile = 720;

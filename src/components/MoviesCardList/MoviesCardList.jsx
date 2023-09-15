@@ -4,13 +4,18 @@ import './MoviesCardList.css';
 import MoviesCard from '../MoviesCard/MoviesCard';
 import {
   MAX_MOVIES_1280,
-  MAX_MOVIES_768,
+  MAX_MOVIES_1000,
+  // MAX_MOVIES_768,
   MAX_MOVIES_DEFAULT,
   MAX_MOVIES_STEP_1280,
   MAX_MOVIES_STEP_1000,
   MAX_MOVIES_STEP_DEFAULT,
 } from "../../constants/constants";
-import { WIDTH_desktop, WIDTH_pad, WIDTH_mobile } from '../../constants/constants';
+import {
+  WIDTH_desktop,
+  // WIDTH_pad,
+  WIDTH_mobile
+} from '../../constants/constants';
 
 
 function MoviesCardList({ movies, errorMessage, setMovies }) {
@@ -31,11 +36,11 @@ function MoviesCardList({ movies, errorMessage, setMovies }) {
     if (width <= WIDTH_mobile) {
       setMaxMovies(MAX_MOVIES_DEFAULT);
       setStep(MAX_MOVIES_STEP_DEFAULT);
-    } else if (width <= WIDTH_pad) {
-      setMaxMovies(MAX_MOVIES_768);
-      setStep(MAX_MOVIES_STEP_DEFAULT);
+    // } else if (width <= WIDTH_pad) {
+    //   setMaxMovies(MAX_MOVIES_768);
+    //   setStep(MAX_MOVIES_STEP_DEFAULT);
     } else if (width <= WIDTH_desktop) {
-      setMaxMovies(MAX_MOVIES_1280);
+      setMaxMovies(MAX_MOVIES_1000);
       setStep(MAX_MOVIES_STEP_1000);
     } else {
       setMaxMovies(MAX_MOVIES_1280);
