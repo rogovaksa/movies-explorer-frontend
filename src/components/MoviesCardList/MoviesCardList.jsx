@@ -14,17 +14,22 @@ import {
 } from "../../constants/constants";
 
 function MoviesCardList({ movies, errorMessage, setMovies }) {
-
-  const location = useLocation();
   const [maxMovies, setMaxMovies] = useState(0);
   const [step, setStep] = useState(0);
+  const location = useLocation();
 
   const width = useResize(); //при любом изменении ширины экрана
 
   function showMoreMovies() {
     setMaxMovies(maxMovies + step);
   }
-  useEffect(() => {
+
+  const setCardsTemplate = () => {
+    // const width = window.innerWidth;
+    if (location.pathname === "/saved-movies") {
+      setMaxMovies(movies.length);
+      return;
+    }
     if (width >= WIDTH_DESKTOP) {
       setMaxMovies(MAX_MOVIES_DESKTOP);
       setStep(MAX_MOVIES_STEP_DESKTOP);
@@ -37,8 +42,11 @@ function MoviesCardList({ movies, errorMessage, setMovies }) {
       setMaxMovies(MAX_MOVIES_MOBILE);
       setStep(MAX_MOVIES_STEP_DEFAULT);
     }
-  }, [width]);
+  };
 
+  useEffect(() => {
+    setCardsTemplate();
+  }, [movies, width]);
 
   const deleteMovie = (id) => {
 	const newMovies = movies.filter((movie) => movie._id !== id);
