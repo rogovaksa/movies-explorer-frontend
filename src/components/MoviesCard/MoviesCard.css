@@ -1,0 +1,138 @@
+.movies {
+  box-shadow: 0px 4px 30px 0px rgba(0, 0, 0, 0.08);
+  padding: 0;
+  margin: 0;
+  max-width: 364px;
+}
+
+.movie__trailer-link:hover {
+  opacity: 0.8;
+}
+
+.movies__list-poster {
+  width: 364px;
+  height: 203px;
+  object-fit: contain;
+}
+
+.movies__list-description {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 19px 0 10px;
+  padding: 0 10px;
+}
+
+.movies__list-name {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 5px;
+}
+
+.movies__list-title {
+  font-style: normal;
+  font-weight: 500;
+  font-size: 15px;
+  line-height: 18.15px;
+  margin: 0;
+  color: rgba(0, 0, 0, 1);
+
+}
+
+.movies__list-save-button {
+  background: url('../../images/saveinactive.svg') center no-repeat;
+  background-color: #313131;
+  border: 1px solid transparent;
+  width: 30px;
+  height: 30px;
+  border-radius: 36px;
+  outline: none;
+  padding: 0;
+  transition: border-color 0.3s;
+}
+
+.movies__list-save-button:hover {
+  cursor: pointer;
+  border: 1px solid #2BE080;
+}
+
+.movies__list-save-button_clicked {
+  background: url('../../images/saveactive.svg') center no-repeat;
+  transition: linear 0.3s;
+}
+
+.movies__list-save-button_clicked:hover {
+  cursor: pointer;
+  opacity: 0.8;
+}
+
+.movies__list-delete-button {
+  background: url('../../images/buttonremove.svg') center no-repeat;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  border: none;
+  outline: none;
+  opacity: 0;
+  cursor: pointer;
+  transition: opacity 0.3s;
+}
+
+.movies:hover .movies__list-delete-button{
+  opacity: 1;
+}
+
+.movies__list-duration {
+  font-style: normal;
+  font-weight: 400;
+  font-size: 11px;
+  line-height: 13.31px;
+  color: rgba(160, 160, 160, 1);
+  margin: 0;
+  padding-top: 6px;
+}
+
+@media(max-width: 820px) {
+  .movies__list-poster {
+    width: 339px;
+    height: 190px;
+  }
+
+  .movies {
+    max-width: 339px;
+  }
+}
+
+@media(max-width: 720px) {
+  .movies__list-delete-button {
+    opacity: 1;
+  }
+}
+
+@media(max-width: 420px) {
+  .movies__list-poster {
+    width: 300px;
+    height: 168px;
+  }
+
+  .movies__list-title {
+    font-size: 15px;
+    line-height: 18.15px;
+  }
+
+  .movies__list-duration {
+    font-size: 11px;
+    line-height: 13.31px;
+  }
+
+  .movies {
+    max-width: 300px;
+  }
+}
+
+@media(max-width: 320px) {
+  .movies__list-poster {
+    max-width: 100%;
+  }
+}
